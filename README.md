@@ -252,3 +252,13 @@ public class App {    // 클래스 선언
 #### 제어문
 
 - if, switch-case, for, while
+
+## 2일차 
+
+### Java 기본 문법
+
+#### 객체지향
+
+#### 메서드
+
+#### 예외처리
