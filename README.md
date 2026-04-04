@@ -81,10 +81,6 @@ OpenJDK 64-Bit Server VM Microsoft-13106404 (build 21.0.10+7-LTS, mixed mode, sh
 
 ### Java 프로젝트
 
-- 새로 공부한다 보다는 필요한 것만 보충해서 학습하겠다 생각
-
-- JavaScript는 자바를 따라서 만들었다? Java와 JavaScript 문법은 많이 다름
-
 #### Java 학습 이유
 
 - Python, Javascript도 웹 서비스를 구현 가능. 개발도 빨리 가능
@@ -117,7 +113,7 @@ OpenJDK 64-Bit Server VM Microsoft-13106404 (build 21.0.10+7-LTS, mixed mode, sh
 - 중요 용어
   - JDK : Java Development Kit. 자바 개발하려면 필수로 설치해야하는 키드
   - JRE : Java Runtime Enviornment. JDK보다 작은 그룹. 자바 실행할 수 있는 파일만 존재
-  - JVM : Java Virtual Machine. 자바로 컴파일된 바이트코드를 실행시키는 가상머신
+  - JVM : Java Virtual Machine. 자바로 컴파일된 바이트코드를 실행시키는 가상머신. JRE/JDK 포함
     - OS 플랫폼 독립적으로 동작. 윈도우에 개발한 자바도 리눅스 등에서 실행 가능
 
 #### 프로젝트 그룹
@@ -230,6 +226,7 @@ public class App {    // 클래스 선언
   - Python과 달리 배열과 리스트가 따로 존재
 
 - 클래스 타입 : java.\*\*\*\*. 형태로 클래스로 만들어진 타입 - 기본 자료형들을 클래스화 시킨 자료형도 존재. Integer, Float, Double, ...
+  - 기본 자료형들을 클래스화 시킨 자료형도 존재. Integer, Float, Double, ...
   - List, StringBuffer, Map, Set, ...
 
 - final
