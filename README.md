@@ -81,10 +81,6 @@ OpenJDK 64-Bit Server VM Microsoft-13106404 (build 21.0.10+7-LTS, mixed mode, sh
 
 ### Java 프로젝트
 
-- 새로 공부한다 보다는 필요한 것만 보충해서 학습하겠다 생각
-
-- JavaScript는 자바를 따라서 만들었다? Java와 JavaScript 문법은 많이 다름
-
 #### Java 학습 이유
 
 - Python, Javascript도 웹 서비스를 구현 가능. 개발도 빨리 가능
