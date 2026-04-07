@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "java-springboot-2026",
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic"
+	}
+}
