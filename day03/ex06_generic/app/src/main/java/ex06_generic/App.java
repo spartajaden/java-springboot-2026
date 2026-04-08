@@ -12,7 +12,7 @@ public class App {
         // box.set(1000);
         // // box.set(true);
 
-        // String s = (String) box.get(); // 형변환 필요 
+        // String s = (String) box.get(); // 형변환 필요 g
         // System.out.println(s);
         // Box<String> box = new Box<>();
         // box.set("10000");
