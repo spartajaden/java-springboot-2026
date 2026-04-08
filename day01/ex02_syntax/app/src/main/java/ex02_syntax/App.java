@@ -3,21 +3,21 @@
  */
 package ex02_syntax;
 
-import java.util.ArrayList; // 리스트
+import java.util.ArrayList;  // 리스트
 import java.util.Arrays;
-import java.util.HashMap; // 맵
-import java.util.HashSet; // 집합
+import java.util.HashMap;  // 맵
+import java.util.HashSet;  // 집합
 
 public class App {
     public static void main(String[] args) {
         // 기본형 Primitive datatype
         int intVal = 10;    // 4byte
-        long lngVal = 98324172943724987l; // 8byte 길이가 지정됨 
-        float fltval = 3.141592f; // 4byte
-        double dblVal = 3.141592; // 8byte
+        long lngVal = 98324172943724987l; // 8byte 길이가 지정됨
+        float fltVal = 3.141592f; // 4byte
+        double dblVal = 3.141592; // 8byte        
         char chrVal = 'A';  // 1byte
-        String strVal = "I'm ironman";  // 클래스형이지만 기본형에 추가. 길이제한 없음
-        boolean boolval = true; // 1byte
+        String strVal = "I'm ironman"; // 클래스형이지만 기본형에 추가. 길이제한 없음
+        boolean boolVal = true; // 1byte
 
         // 기본 클래스형, 특수한 이유로 기본형을 클래스화 시킨 타입
         Integer IntValue = 10;
@@ -42,7 +42,7 @@ public class App {
         list.add(30);  // python list.append() 와 동일
 
         System.out.println("Hello, Java!");
-        System.out.println(fltval);
+        System.out.println(fltVal);
         System.out.println(list);
 
         // HashMap
@@ -57,11 +57,11 @@ public class App {
         HashSet<String> set1 = new HashSet<>(Arrays.asList("H", "e", "l", "l", "o", "e"));
         System.out.println(set1);
 
-        double dblWorth = intVal;  // 작은 데이터형을 큰 데이터 형으로 옮길때는 문제없음 
+        double dblWorth = intVal;  // 작은 데이터형을 큰 데이터형으로 옮길때는 문제없음
         System.out.println(dblWorth);
-        int intWorth = (int) dblVal; // 큰 데이터형을 작은 데이터 형으로 옮길때는 타입을 지정해야 함
+        int intWorth = (int) dblVal; // 큰 데이터형을 작은 데이터형으로 옮길때는 타입을 지정해야 함
         System.out.println(intWorth);
-
+        
         final int number = 123;
         // number = 4567; // 오류!
     }
