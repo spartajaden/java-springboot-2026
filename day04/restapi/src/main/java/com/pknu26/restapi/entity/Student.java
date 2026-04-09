@@ -15,7 +15,7 @@ public class Student {
         return name;
     }
 
-    // public int getAge() {
-    //     return age;
-    // }
+    public int getAge() {
+        return age;
+    }
 }
