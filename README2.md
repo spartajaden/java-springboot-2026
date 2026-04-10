@@ -675,23 +675,25 @@ System.out.println(s.age());
   - https://getbootstrap.com/
   - layout.html 리소스 태그 추가
 
+  ![alt text](image-24.png)
+
   #### Board 작업 순서 2
   1. validation 관련 의존성 추가
 
   - build.gradle - [소스](./day06/webboard/build.gradle)
 
   ```groovy
-
+  testImplementation 'org.springframework.boot:spring-boot-starter-validation'
   ```
 
   2. validation 폴더 생성
 
   3. BoardForm.js 생성 - [소스](./day06/webboard/src/main/java/com/pknu26/webboard/validation/BoardForm.java)
   4. board_create.html 생성 - [소스](./day06/webboard/src/main/resources/templates/board_create.html)
-  5. Board_Service.java 생성 - [소스](./day06/webboard/src/main/java/com/pknu26/webboard/
-  6. Board_Controller.java 메서드 추가
+  5. Board_Service.java 생성 - [소스](./day06/webboard/src/main/java/com/pknu26/webboard/service/BoardService.java)
+  6. Board_Controller.java 메서드 추가 - [소스](./day06/webboard/src/main/java/com/pknu26/webboard/controller/BoardController.java)
 
-  ## 7일차
+  ## 7일차 - 잠시 수정
 
   ### Spring Boot webboard 계속
 
