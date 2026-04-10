@@ -666,7 +666,7 @@ System.out.println(s.age());
     - th:fragment="layout(content)"
     - th:replace="${content}"
   - list.html
-    - th:replace="~{layout(~{})}"
+    - th:replace="{~~layout(~~{})}"
 
 #### Bootstrap 디자인 적용
 
