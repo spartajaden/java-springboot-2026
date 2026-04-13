@@ -53,8 +53,7 @@ public class BoardService {
             board.setCreateDate(LocalDateTime.now()); // 현재 일시 할당
 
             // 리포지토리로 DB에 저장
-            // PK bno가 없기때문에 save 실행하면 INSERT INTO 쿼리 실행
-            this.boardRepository.save(board); 
+            this.boardRepository.save(board); // INSERT INTO 쿼리 실행
             return true;
         } catch (Exception e) {
             // 에러 로그 출력
@@ -67,14 +66,18 @@ public class BoardService {
         try {
             board.setTitle(title);
             board.setContent(content);
-            board.setModifyData(LocalDateTime.now());
-            
+            board.setModifyDate(LocalDateTime.now());
+
             // PK bno가 있으면 save 실행시 UPDATE 쿼리 실행
             this.boardRepository.save(board);
             return true;
         } catch (Exception e) {
             return false;
         }
+        
+    }
 
+    public void deleteBoardOne(Board board) {
+        this.boardRepository.delete(board);  // DELETE 쿼리 실행
     }
 }

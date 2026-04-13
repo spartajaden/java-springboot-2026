@@ -9,10 +9,11 @@
       <div class="col">
         <h4 class="my-3 pb-2">게시글 쓰기</h4>
 
+        <!-- 한화면에서 create/modify 처리하려면 아래와 같이 삼항연산자 사용 -->
         <form
-          th:action="${mode} == 'create' 
-                ? @{/board/create} 
-                : @{|/board/modify/${bno}|}"
+          th:action="${mode} == 'create'
+                    ? @{/board/create}
+                    : @{|/board/modify/${bno}|}"
           th:object="${boardForm}"
           method="post"
         >
@@ -27,6 +28,7 @@
               th:text="${error}"
             ></div>
           </div>
+          
           <!-- 제목입력 영역-->
           <div class="mb-3">
             <label for="title" class="form-label">제목</label>
