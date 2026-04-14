@@ -760,6 +760,7 @@ System.out.println(s.age());
   - Spring MVC
 
   #### 프로젝트 생성
+
   - Spring Initializr: Create a Gradle Project...
   - Artifact ID : `studygroup`
   - Choose dependencies
@@ -780,7 +781,10 @@ CREATE USER studygroup IDENTIFIED BY java12345;
   -- 권한
 GRANT ALL PRIVILEGES TO studygroup;
 ```
+
 #### 테이블 생성
+
+- [소스](./day08/studygroup/sql/student_schema.sql)
 
 ```sql
 -- student 테이블
