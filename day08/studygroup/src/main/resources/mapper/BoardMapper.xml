@@ -45,7 +45,7 @@
 
     <update id="updateBoard" parameterType="Board">
         UPDATE BOARD
-            SET TITLE=''
+            SET TITLE=#{title}
                 , CONTENT= #{content}
                 , WRITER= #{writer}
                 , UPDATED_AT= SYSDATE
