@@ -576,6 +576,7 @@ spring.jpa.properties.hibernate.show_sql=true
 6. resources/templates/home.html 작성 - [소스](./day05/webboard/src/main/resources/templates/home.html)
 
 7. entity/Board.java 작성 - [소스](./day05/webboard/src/main/java/com/pknu26/webboard/entity/Board.java)
+
    - 어노테이션 주의할 것
      - JPA 어노테이션
      - Lombok 어노테이션
@@ -666,19 +667,22 @@ System.out.println(s.age());
     - th:fragment="layout(content)"
     - th:replace="${content}"
   - list.html
-    - th:replace="{~~layout(~~{})}"
+    - th:replace="~~{layout :: layout(~~{::content})}"
+    - th:fragment="content"
 
 #### Bootstrap 디자인 적용
 
 - 방법 1 : Bootstrap 관련 리소스 다운로드 후 static 폴더 저장
 - `방법 2` : CDN으로 링크를 사용. 실행시 캐시에 다운로드받기
   - https://getbootstrap.com/
-  - layout.html 리소스 태그 추가
+  - layout.html 리소스 태그 추가 - [소스](./day06/webboard/src/main/resources/templates/layout.html)
 
   ![alt text](image-24.png)
 
   #### Board 작업 순서 2
+
   1. validation 관련 의존성 추가
+
   - build.gradle - [소스](./day06/webboard/build.gradle)
 
   ```groovy
@@ -697,6 +701,7 @@ System.out.println(s.age());
   ### Spring Boot webboard 계속
 
   #### 추가 어노테이션
+
   - 일반
     - @RequiredArgConstructor : `final` 멤버변수 파라미터를 생성자로 생성하는 Lombok 어노테이션
     - @AllArgConstructor : 클래스 모든 멤버변수를 파라미터로 생성자 생성
@@ -747,6 +752,7 @@ System.out.println(s.age());
   ![alt text](image-25.png)
 
   ### MyBatis Spring Boot
+
   - Spring Boot 4.0.5
   - JDK 21
   - Gradle 9.x
@@ -756,6 +762,7 @@ System.out.println(s.age());
   - Spring MVC
 
   #### 프로젝트 생성
+
   - Spring Initializr: Create a Gradle Project...
   - Artifact ID : `studygroup`
   - Choose dependencies
@@ -1040,7 +1047,7 @@ NOCYCLE;
 
 ![alt text](image-32.png)
 
-#### 부트스트랩 템플릿 적용
+#### 부트스트랩 템플릿 리스트
 
 - [부트스트랩 공식 사이트](https://getbootstrap.com/docs/5.3/examples/)
   - 부트스트랩 예제 페이지, Download examples 다운로드 후 압축해제
@@ -1086,18 +1093,32 @@ NOCYCLE;
     1. trumbowyg 관련 css, js 파일 static 저장
     2. layout.html 수정
 
-    ```html
-    <!doctype html>
-    <!-- th:fragment에 pageScript 추가 -->
-    <html
-      lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      th:fragment="layout(content, pageScripts)"
-      data-bs-theme="auto"
-    >
-      ''' - jQuery CDN 링크 layout.html 추가
-    </html>
-    ```
+      ```html
+      <!doctype html>
+      <!-- th:fragment에 pageScripts 추가 -->
+      <html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="layout(content, pageScripts)"
+        data-bs-theme="auto"
+      >
+        ...
+        <head>
+      <!-- trumbowyg용 css -->
+      <link
+        rel="stylesheet"
+        type="text/css"
+        th:href="@{/trumbowyg/ui/trumbowyg.min.css}"
+      />
+    </head>
+    <body>
+      ...
+      <!-- 페이지 개별 스크립트는 맨 마지막 -->
+      <script th:replace="${pageScripts} ?: ~{}"></script>
+    </body>
+  </html>
+  
+
   3. form.html 수정
 
   ```html
@@ -1122,13 +1143,15 @@ NOCYCLE;
 
   ```html
   <!doctype html>
-  <!-- >
+  <!-- pageScripts를 사용안하기때문에 ~{} 표현 -->
   <html
     lang="ko"
     xmlns:th="http://www.thymeleaf.org"
     th:replace="~{layout :: layout(~{::content}, ~{})}"
   ></html>
   ```
+
+  ![alt text](image-37.png)
 
 #### 관리자 기능
 
