@@ -9,6 +9,16 @@
       "projectName": "moviemng",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-WebboardApplication<moviemng>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.pknu26.movie_mng.WebboardApplication",
+      "projectName": "moviemng",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
