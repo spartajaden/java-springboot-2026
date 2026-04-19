@@ -31,28 +31,36 @@
           
           <!-- 제목입력 영역-->
           <div class="mb-3">
-            <label for="title" class="form-label">제목</label>
+            <label for="title" class="form-label">영화명</label>
             <input th:field="*{title}" type="text" class="form-control" />
           </div>
-          <!-- 장르입력 영역-->
+          <!-- 소감입력 영역-->
           <div class="mb-3">
-            <label for="content" class="form-label">장르</label>
+            <label for="content" class="form-label">소감</label>
             <input th:field="*{content}" type="text" class="form-control" />
           </div>
-          <!-- 개봉일 입력 영역-->
+          <!-- 장르 -->
           <div class="mb-3">
-            <label for="content" class="form-label">개봉일</label>
-            <input th:field="*{content}" type="text" class="form-control" />
+            <label for="genre" class="form-label">장르</label>
+            <input th:field="*{genre}" type="text" class="form-control" placeholder="예: 액션, 드라마" />
           </div>
-          <!-- 영화시간 입력 영역-->
+
+          <!-- 개봉일 -->
           <div class="mb-3">
-            <label for="content" class="form-label">영화시간</label>
-            <input th:field="*{content}" type="text" class="form-control" />
+            <label for="releaseDate" class="form-label">개봉일</label>
+            <input th:field="*{releaseDate}" type="date" class="form-control" />
           </div>
-          <!-- 평점 입력 영역-->
+
+          <!-- 영화시간 -->
           <div class="mb-3">
-            <label for="content" class="form-label">평점</label>
-            <input th:field="*{content}" type="text" class="form-control" />
+            <label for="duration" class="form-label">영화시간 (분)</label>
+            <input th:field="*{duration}" type="number" class="form-control" placeholder="예: 120" />
+          </div>
+
+          <!-- 평점 -->
+          <div class="mb-3">
+            <label for="rating" class="form-label">평점 (0.0 ~ 10.0)</label>
+            <input th:field="*{rating}" type="number" step="0.1" min="0" max="10" class="form-control" />
           </div>
 
           <div class="text-end">

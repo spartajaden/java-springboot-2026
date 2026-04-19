@@ -1,5 +1,6 @@
 package com.pknu26.movie_mng.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -36,4 +37,44 @@ public class Board {
 
     @LastModifiedDate   // 수정될때마다 날짜 변경
     private LocalDateTime modifyData;   // 게시글 수정일
+
+    public Object getGenre() {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'getGenre'");
+    }
+
+    public Object getReleaseDate() {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'getReleaseDate'");
+    }
+
+    public Object getDuration() {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'getDuration'");
+    }
+
+    public Object getRating() {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'getRating'");
+    }
+
+	public void setGenre(String genre) {
+		
+		throw new UnsupportedOperationException("Unimplemented method 'setGenre'");
+	}
+
+	public void setReleaseDate(LocalDate releaseDate) {
+		
+		throw new UnsupportedOperationException("Unimplemented method 'setReleaseDate'");
+	}
+
+    public void setDuration(Integer duration) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
+    }
+
+	public void setRating(Double rating) {
+		
+		throw new UnsupportedOperationException("Unimplemented method 'setRating'");
+	}
 }

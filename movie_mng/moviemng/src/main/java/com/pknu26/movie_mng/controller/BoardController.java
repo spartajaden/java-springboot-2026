@@ -66,7 +66,7 @@ public class BoardController {
         }
 
         // 실제 저장
-        this.boardService.setBoardOne(boardForm.getTitle(), boardForm.getContent());
+        this.boardService.setBoardOne(boardForm.getTitle(), boardForm.getContent(), boardForm.getGenre(), boardForm.getReleaseDate(), boardForm.getDuration(), boardForm.getRating());
 
         return "redirect:/board/list";
     }
@@ -76,6 +76,10 @@ public class BoardController {
         Board board = this.boardService.getBoardOne(bno);
         boardForm.setTitle(board.getTitle());
         boardForm.setContent(board.getContent());
+        boardForm.setGenre(board.getGenre());
+        boardForm.setReleaseDate(board.getReleaseDate());
+        boardForm.setDuration(board.getDuration());
+        boardForm.setRating(board.getRating());
 
         model.addAttribute("mode", "modify");
         model.addAttribute("bno", board.getBno());
@@ -90,7 +94,7 @@ public class BoardController {
         }
         // boardService에 수정용 메서드를 추가
         Board board = this.boardService.getBoardOne(bno);
-        this.boardService.putBoardOne(board, boardForm.getTitle(), boardForm.getContent());
+        this.boardService.putBoardOne(board, boardForm.getTitle(), boardForm.getContent(), boardForm.getGenre(), boardForm.getReleaseDate(), boardForm.getDuration(), boardForm.getRating());
         
         return "redirect:/board/list"; // 수정 후 목록으로 돌아감
     }

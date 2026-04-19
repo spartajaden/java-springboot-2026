@@ -1,5 +1,6 @@
 package com.pknu26.movie_mng.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class BoardService {
     // }
 
     // 게시판 글 모두 가져오기
-    // SELECT bno, title, content, create_date, modify_date FROM borad
+    // SELECT bno, title, content, create_date, modify_date FROM board
     public List<Board> getBoradlList() {
         return this.boardRepository.findAll();
     }
@@ -44,12 +45,17 @@ public class BoardService {
     }
 
     // 게시판 글 저장
-    public boolean setBoardOne(String title, String content) {
+    public boolean setBoardOne(String title, String content, String genre, LocalDate releaseDate,
+                               Integer duration, Double rating) {
         Board board = new Board();
 
         try {
             board.setTitle(title);  // board.title 필드에 할당
             board.setContent(content);  // board.content 필드에 할당
+            board.setGenre(genre);              // board.genre 필드에 할당
+            board.setReleaseDate(releaseDate);  // board.releaseDate 필드에 할당
+            board.setDuration(duration);        // board.duration 필드에 할당
+            board.setRating(rating);            // board.rating 필드에 할당
             board.setCreateDate(LocalDateTime.now()); // 현재 일시 할당
 
             // 리포지토리로 DB에 저장
@@ -62,10 +68,15 @@ public class BoardService {
     }
 
     // 게시판 글 수정
-    public boolean putBoardOne(Board board, String title, String content) {
+    public boolean putBoardOne(Board board, String title, String content, String genre, LocalDate releaseDate,
+                               Integer duration, Double rating) {
         try {
             board.setTitle(title);
             board.setContent(content);
+            board.setGenre(genre);              
+            board.setReleaseDate(releaseDate);  
+            board.setDuration(duration);        
+            board.setRating(rating);            
             board.setModifyData(LocalDateTime.now());
 
             // PK bno가 있으면 save 실행시 UPDATE 쿼리 실행
