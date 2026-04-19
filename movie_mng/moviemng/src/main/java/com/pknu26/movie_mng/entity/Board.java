@@ -31,6 +31,11 @@ public class Board {
     @Column(length = 8000)
     private String content; // 게시글 내용
 
+    private String genre;          // 장르
+    private LocalDate releaseDate; // 개봉일
+    private Integer duration;      // 영화시간 (분)
+    private Double rating;         // 평점
+    
     @CreatedDate // 생성일자
     @Column(updatable = false)  // 최초 작성시 생성후 수정X
     private LocalDateTime createDate;   // 게시글 작성일
@@ -38,43 +43,5 @@ public class Board {
     @LastModifiedDate   // 수정될때마다 날짜 변경
     private LocalDateTime modifyData;   // 게시글 수정일
 
-    public Object getGenre() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'getGenre'");
-    }
-
-    public Object getReleaseDate() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'getReleaseDate'");
-    }
-
-    public Object getDuration() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'getDuration'");
-    }
-
-    public Object getRating() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'getRating'");
-    }
-
-	public void setGenre(String genre) {
-		
-		throw new UnsupportedOperationException("Unimplemented method 'setGenre'");
-	}
-
-	public void setReleaseDate(LocalDate releaseDate) {
-		
-		throw new UnsupportedOperationException("Unimplemented method 'setReleaseDate'");
-	}
-
-    public void setDuration(Integer duration) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
-    }
-
-	public void setRating(Double rating) {
-		
-		throw new UnsupportedOperationException("Unimplemented method 'setRating'");
-	}
+    
 }

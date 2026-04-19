@@ -2,6 +2,8 @@ package com.pknu26.movie_mng.validation;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -25,28 +27,10 @@ public class BoardForm {
 
     private Integer duration;      // 영화시간 (분)
 
-    public void setGenre(Object genre) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'setGenre'");
-    }
+    @DecimalMin(value = "0.0", message = "평점은 0.0 이상이어야 합니다")
+    @DecimalMax(value = "10.0", message = "평점은 10.0 이하이어야 합니다")
+    private Double rating;         // 평점
 
-    public void setReleaseDate(Object releaseDate) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'setReleaseDate'");
-    }
-
-    public void setDuration(Object duration) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
-    }
-
-    public void setRating(Object rating) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'setRating'");
-    }
-
-    public Double getRating() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'getRating'");
-    }
+    
 }
+
