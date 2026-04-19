@@ -576,6 +576,7 @@ spring.jpa.properties.hibernate.show_sql=true
 6. resources/templates/home.html 작성 - [소스](./day05/webboard/src/main/resources/templates/home.html)
 
 7. entity/Board.java 작성 - [소스](./day05/webboard/src/main/java/com/pknu26/webboard/entity/Board.java)
+
    - 어노테이션 주의할 것
      - JPA 어노테이션
      - Lombok 어노테이션
@@ -666,19 +667,22 @@ System.out.println(s.age());
     - th:fragment="layout(content)"
     - th:replace="${content}"
   - list.html
-    - th:replace="{~~layout(~~{})}"
+    - th:replace="~~{layout :: layout(~~{::content})}"
+    - th:fragment="content"
 
 #### Bootstrap 디자인 적용
 
 - 방법 1 : Bootstrap 관련 리소스 다운로드 후 static 폴더 저장
 - `방법 2` : CDN으로 링크를 사용. 실행시 캐시에 다운로드받기
   - https://getbootstrap.com/
-  - layout.html 리소스 태그 추가
+  - layout.html 리소스 태그 추가 - [소스](./day06/webboard/src/main/resources/templates/layout.html)
 
   ![alt text](image-24.png)
 
   #### Board 작업 순서 2
+
   1. validation 관련 의존성 추가
+
   - build.gradle - [소스](./day06/webboard/build.gradle)
 
   ```groovy
@@ -697,6 +701,7 @@ System.out.println(s.age());
   ### Spring Boot webboard 계속
 
   #### 추가 어노테이션
+
   - 일반
     - @RequiredArgConstructor : `final` 멤버변수 파라미터를 생성자로 생성하는 Lombok 어노테이션
     - @AllArgConstructor : 클래스 모든 멤버변수를 파라미터로 생성자 생성
@@ -747,6 +752,7 @@ System.out.println(s.age());
   ![alt text](image-25.png)
 
   ### MyBatis Spring Boot
+
   - Spring Boot 4.0.5
   - JDK 21
   - Gradle 9.x
@@ -756,6 +762,7 @@ System.out.println(s.age());
   - Spring MVC
 
   #### 프로젝트 생성
+
   - Spring Initializr: Create a Gradle Project...
   - Artifact ID : `studygroup`
   - Choose dependencies
@@ -1040,7 +1047,7 @@ NOCYCLE;
 
 ![alt text](image-32.png)
 
-#### 부트스트랩 템플릿 적용
+#### 부트스트랩 템플릿 리스트
 
 - [부트스트랩 공식 사이트](https://getbootstrap.com/docs/5.3/examples/)
   - 부트스트랩 예제 페이지, Download examples 다운로드 후 압축해제
@@ -1054,6 +1061,132 @@ NOCYCLE;
 - Navbar/index.html 소스 참조
 - 태그 복사/붙여넣기
 - 필요기능 추가
+
+## 11일차
+
+#### 게시판 계정 연결
+
+- 세션과 연결
+
+#### 게시판 이슈(현재 문제점)
+
+1. [x] 게시글 상세에서 이름대신 로그인 아이디가 표시
+2. [x] 본인 글이 아닌게 수정됨
+3. [x] 에디터 적용후 상세보기 화면깨짐
+
+- th:text -> th:utext로 변경
+
+4. [ ] 게시판 다른 페이지에서 게시글 삭제후 첫번째 페이지로 전환
+5. [ ] 댓글 작성 및 삭제기능 아무나 가능
+6. [ ] Navigation 동작없는 검색 입력창
+
+#### 게시판 앱에디터 적용
+
+- 티스토리 웹에디터
+  ![alt text](image-33.png)
+
+- 웹데이터 리스트
+  - CK에디터 : https://ckeditor.com/ckeditor-5/ 유무료 웹에디터 1등
+  - `트럼보우YG` : https://alex-d.github.io/Trumbowyg/ 심플 무료 웹에디터
+
+  - Trumbowyg 적용
+    1. trumbowyg 관련 css, js 파일 static 저장
+    2. layout.html 수정
+
+      ```html
+      <!doctype html>
+      <!-- th:fragment에 pageScripts 추가 -->
+      <html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        th:fragment="layout(content, pageScripts)"
+        data-bs-theme="auto"
+      >
+        ...
+        <head>
+      <!-- trumbowyg용 css -->
+      <link
+        rel="stylesheet"
+        type="text/css"
+        th:href="@{/trumbowyg/ui/trumbowyg.min.css}"
+      />
+    </head>
+    <body>
+      ...
+      <!-- 페이지 개별 스크립트는 맨 마지막 -->
+      <script th:replace="${pageScripts} ?: ~{}"></script>
+    </body>
+  </html>
+  
+
+  3. form.html 수정
+
+  ```html
+  <!doctype html>
+  <!-- 추가된 pageScript 레이아웃 영역 작성 -->
+  <!doctype html>
+  <html
+    lang="ko"
+    xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: layout(~{::content}, ~{::pageScripts})}"
+  >
+
+    '''
+    <!-- pageScript를 사용하는 페이지 -->
+    <script th:fragment="pageScript">
+      $(function ()) {
+
+      }
+  ```
+
+  4. trumbowyg 에디터를 사용하지 않는 나머지 html
+
+  ```html
+  <!doctype html>
+  <!-- pageScripts를 사용안하기때문에 ~{} 표현 -->
+  <html
+    lang="ko"
+    xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: layout(~{::content}, ~{})}"
+  ></html>
+  ```
+
+  ![alt text](image-37.png)
+
+#### 관리자 기능
+
+- 관리자구분
+  - `ROLE_USER` : 일반 사용자
+  - `ROLE_ADMIN` : 관리자
+- 게시글 삭제
+
+#### 웹사이트 홈 페이지
+
+- HomeController 생성
+- templates/home.html 생성
+
+- bootstrap 공식 예제 carousel 활용
+
+![alt text](image-34.png)
+
+#### 스터디모집 DB설계
+
+- 스터디모집 ERD
+  ![alt text](image-36.png)
+
+- 테이블 관계
+  - 스터디 종류 카테고리 1개는 여러개의 스터디글에 포함
+    - `categories 1 : N study_posts`
+  - 사용자 1명은 여러개의 스터디글을 쓸 수 있음
+    - `user_account 1 : N study_posts`
+  - 사용자 1명은 여러개의 댓글을 쓸 수 있음
+    - `user_account 1 : N comment`
+  - 스터디 게시글 1개에는 여러개의 댓글이 적힘
+    - `study_posts 1 : N comments`
+  - 사용자 1명은 여러 스터디 게시글에 신청가능
+    - `user_account 1 : N study_applications`
+  - 스터디 게시글 1개에는 여러 신청이 들어옴
+    - `study_post 1: N study_applications`
 
 #### 스터디모집 웹사이트
 
