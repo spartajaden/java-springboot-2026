@@ -1,0 +1,47 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout :: layout(~{::content})}"
+>
+  <div th:fragment="content" class="container my-3">
+    <div class="row">
+      <div class="col">
+        <!-- 게시판 목록-->
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>No.</th>
+              <th>영화명</th>
+              <th>장르</th>
+              <th>개봉일</th>
+              <th>영화시간</th>
+              <th>평점</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="board, index : ${boardList}">
+              <td th:text="${index.count}"></td>
+              <td>
+                <a
+                  th:href="@{|/board/detail/${board.bno}|}"
+                  th:text="${board.title}"
+                ></a>
+              </td>
+              <!-- 날짜포멧 변경 함수 #temporals.format(date, 'yyyy-mm-dd HH:mm:ss')-->
+              <!-- <td th:text="${board.create}"-->
+              <td th:text="${board.createDate}"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 게시글쓰기 버튼 영역 -->
+        <div class="text-end">
+          <a th:href="@{/board/create}" class="btn btn-sm btn success">
+            <i class="bi bi-pencil"></i>글쓰기</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

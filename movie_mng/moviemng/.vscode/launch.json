@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-MovieMngApplication<movie_mng>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.pknu26.movie_mng.MovieMngApplication",
+      "projectName": "movie_mng",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
