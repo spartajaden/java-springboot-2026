@@ -7,7 +7,6 @@
   <div th:fragment="content" class="container my-3">
     <div class="row">
       <div class="col">
-        <!-- 게시판 목록-->
         <table class="table">
           <thead class="table-dark">
             <tr>
@@ -28,18 +27,30 @@
                   th:text="${board.title}"
                 ></a>
               </td>
-              <!-- 날짜포멧 변경 함수 #temporals.format(date, 'yyyy-mm-dd HH:mm:ss')-->
-              <!-- <td th:text="${board.create}"-->
-              <td th:text="${board.createDate}"></td>
+
+              <!-- 장르 -->
+              <td th:text="${board.genre}"></td>
+
+              <!-- 개봉일 (날짜 포맷 적용) -->
+              <td th:text="${board.releaseDate != null} ? 
+                  ${#temporals.format(board.releaseDate, 'yyyy-MM-dd')} : ''"></td>
+
+              <!-- 영화시간 -->
+              <td th:text="${board.duration != null} ? 
+                  ${board.duration + '분'} : ''"></td>
+
+              <!-- 평점 -->
+              <td th:text="${board.rating}"></td>
             </tr>
           </tbody>
         </table>
 
         <!-- 게시글쓰기 버튼 영역 -->
+        <!-- btn-success 오타 수정 (success → btn-success) -->
         <div class="text-end">
-          <a th:href="@{/board/create}" class="btn btn-sm btn success">
-            <i class="bi bi-pencil"></i>글쓰기</a
-          >
+          <a th:href="@{/board/create}" class="btn btn-sm btn-success">
+            <i class="bi bi-pencil"></i> 글쓰기
+          </a>
         </div>
       </div>
     </div>

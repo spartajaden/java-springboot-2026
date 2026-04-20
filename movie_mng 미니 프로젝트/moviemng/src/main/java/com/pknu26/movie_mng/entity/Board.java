@@ -1,5 +1,6 @@
 package com.pknu26.movie_mng.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -30,10 +31,17 @@ public class Board {
     @Column(length = 8000)
     private String content; // 게시글 내용
 
+    private String genre;          // 장르
+    private LocalDate releaseDate; // 개봉일
+    private Integer duration;      // 영화시간 (분)
+    private Double rating;         // 평점
+    
     @CreatedDate // 생성일자
     @Column(updatable = false)  // 최초 작성시 생성후 수정X
     private LocalDateTime createDate;   // 게시글 작성일
 
     @LastModifiedDate   // 수정될때마다 날짜 변경
     private LocalDateTime modifyData;   // 게시글 수정일
+
+    
 }
