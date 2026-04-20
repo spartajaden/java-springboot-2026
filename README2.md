@@ -1169,27 +1169,8 @@ NOCYCLE;
 
 ![alt text](image-34.png)
 
-#### 스터디모집 DB설계
+## Next Chapter
 
-- 스터디모집 ERD
-  ![alt text](image-36.png)
+[ToyProject](README3.md)
 
-- 테이블 관계
-  - 스터디 종류 카테고리 1개는 여러개의 스터디글에 포함
-    - `categories 1 : N study_posts`
-  - 사용자 1명은 여러개의 스터디글을 쓸 수 있음
-    - `user_account 1 : N study_posts`
-  - 사용자 1명은 여러개의 댓글을 쓸 수 있음
-    - `user_account 1 : N comment`
-  - 스터디 게시글 1개에는 여러개의 댓글이 적힘
-    - `study_posts 1 : N comments`
-  - 사용자 1명은 여러 스터디 게시글에 신청가능
-    - `user_account 1 : N study_applications`
-  - 스터디 게시글 1개에는 여러 신청이 들어옴
-    - `study_post 1: N study_applications`
 
-#### 스터디모집 웹사이트
-
-#### 게시판 내용 웹에디터 추가
-
-#### 조회수 증가
