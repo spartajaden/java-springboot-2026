@@ -59,7 +59,6 @@ public class UserController {
         return "/user/login";
     }
 
-
     // 로그인처리
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("userLoginForm") UserLoginForm form, 
@@ -93,7 +92,7 @@ public class UserController {
     // 로그아웃
     @PostMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate();   // 세션정보 날리기
+        session.invalidate();  // 세션정보 날리기
         return "redirect:/"; // home으로 이동
     }
 }

@@ -14,7 +14,7 @@
       th:action="${categoryForm != null and categoryForm.categoryId != null} ? @{|/admin/categories/edit/${categoryForm.categoryId}|} : @{/admin/categories/create}"
       method="post"
     >
-      <!-- 로그인아이디 숨김값 -->
+      <!-- 카테고리아이디 숨김값 -->
       <input type="hidden" th:field="*{categoryId}" />
 
       <div class="row">
@@ -26,11 +26,7 @@
             th:field="*{categoryName}"
             class="form-control"
           />
-          <div
-            class="text-danger mt-1"
-            th:if="${#fields.hasErrors('categoryName')}"
-            th:errors="*{categoryName}"
-          ></div>
+          <div class="text-danger mt-1" th:errors="*{categoryName}" />
         </div>
       </div>
 

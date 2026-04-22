@@ -35,11 +35,7 @@
               th:text="${category.categoryName}"
             ></option>
           </select>
-          <div
-            class="text-danger mt-1"
-            th:if="${#fields.hasErrors('categoryId')}"
-            th:errors="*{categoryId}"
-          ></div>
+          <div class="text-danger mt-1" th:errors="*{categoryId}"></div>
         </div>
       </div>
 
@@ -52,11 +48,7 @@
             th:field="*{title}"
             class="form-control"
           />
-          <div
-            class="text-danger mt-1"
-            th:if="${#fields.hasErrors('title')}"
-            th:errors="*{title}"
-          ></div>
+          <div class="text-danger mt-1" th:errors="*{title}"></div>
         </div>
       </div>
 
@@ -71,11 +63,7 @@
             min="2"
             value="2"
           />
-          <div
-            class="text-danger mt-1"
-            th:if="${#fields.hasErrors('maxMembers')}"
-            th:errors="*{maxMembers}"
-          ></div>
+          <div class="text-danger mt-1" th:errors="*{maxMembers}"></div>
         </div>
       </div>
 
@@ -86,12 +74,9 @@
             id="content"
             th:field="*{content}"
             class="form-control"
+            rows="3"
           ></textarea>
-          <div
-            class="text-danger mt-1"
-            th:if="${#fields.hasErrors('content')}"
-            th:errors="*{content}"
-          ></div>
+          <div class="text-danger mt-1" th:errors="*{content}"></div>
         </div>
       </div>
 

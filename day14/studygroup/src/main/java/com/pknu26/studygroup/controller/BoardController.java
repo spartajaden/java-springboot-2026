@@ -31,8 +31,8 @@ public class BoardController {
     private BoardService boardService;
 
     @Autowired
-    private ReplyService replyService; // 댓글도 가져와야 함
-    
+    private ReplyService replyService;  // 댓글도 가져와야 함
+
     // 목록, 페이징 용 변경
     @GetMapping("/list")
     public String list(@ModelAttribute PageRequest pageRequest, Model model) {
@@ -40,14 +40,14 @@ public class BoardController {
         return "/board/list"; // board 폴더 밑에 위치한 list.html을 리턴하라
     }
     
-    // 목록상세보기
+    // 목록상세보기    
     @GetMapping("/detail/{boardId}")
     public String detail(@PathVariable("boardId") Long boardId, Model model) {
         Board board = this.boardService.readBoardById(boardId);
-        
+
         model.addAttribute("board", board);
         // 댓글 리스트 추가
-        model.addAttribute("replyList", replyService.getReplyListByBoardId(boardId));
+        model.addAttribute("replyList", this.replyService.getReplyListByBoardId(boardId));
 
         ReplyForm replyForm = new ReplyForm();
         replyForm.setBoardId(boardId);
@@ -69,13 +69,13 @@ public class BoardController {
         // 로그인한 계정 정보를 html 전달
         BoardForm boardForm = new BoardForm();
         // 세션에서 넘어온 정보 할당
-        boardForm.setWriter(loginUser.getLoginId());
-        boardForm.setWriterId(loginUser.getLoginId());
+        boardForm.setWriter(loginUser.getName());
+        boardForm.setWriterId(loginUser.getLoginId()); 
 
         model.addAttribute("boardForm", boardForm);
 
         // #PRC02 - 입력값 검증 BoardForm을 읽어온 후, /board/form.html에 model로 전달
-        return "redirect:/user/login"; // .html 작성안함. /baord/form.html 화면 띄움
+        return "/board/form"; // .html 작성안함. /baord/form.html 화면 띄움
     }
 
     // 글쓰기 POST
@@ -83,13 +83,13 @@ public class BoardController {
     // BoardForm 입력검증 클래스, BindingResult 검증처리
     @PostMapping("/create") 
     public String create(@Valid BoardForm boardForm, BindingResult bindingResult, HttpSession session) {
-        LoginUser loginUser = (LoginUser) session.getAttribute("name");
+        LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
 
-        if (bindingResult.hasErrors()) {
-            return "/board/form";
+        if (loginUser == null) {
+            return "redirect:/user/login"; // 로그인안한 사람은 게시판 글 못씀
         }
 
-        // #PRC06 - 입력에 에러가 있으면 다시 폼화면으로 이동
+        // #PRC05 - 입력에 에러가 있으면 다시 폼화면으로 이동
         if (bindingResult.hasErrors()) {
             return "/board/form";
         }
@@ -110,12 +110,13 @@ public class BoardController {
         if (loginUser == null) {
             return "redirect:/user/login"; // 로그인안한 사람은 게시판 글 못씀
         }
-        
+
         BoardForm boardForm = new BoardForm();
         boardForm.setBoardId(board.getBoardId());
         boardForm.setTitle(board.getTitle());
         boardForm.setContent(board.getContent());
-        boardForm.setWriter(board.getWriter());
+        boardForm.setWriter(loginUser.getName());
+        boardForm.setWriterId(loginUser.getLoginId());
 
         model.addAttribute("boardForm", boardForm);
         return "/board/form";

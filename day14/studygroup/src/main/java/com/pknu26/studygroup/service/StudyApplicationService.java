@@ -17,9 +17,10 @@ import lombok.RequiredArgsConstructor;
 public class StudyApplicationService {
 
     private final StudyApplicationMapper studyApplicationMapper;
-    private final StudyPostMapper studyPostMapper;
+    private final StudyPostMapper studyPostMapper; // 스터디 신청하려면 스터디 게시글이 필요
 
     public void apply(StudyApplicationForm form) {
+        // HACK : 아래가 비즈니스 로직
         // 해당 스터디포스트 찾음
         StudyPost post = this.studyPostMapper.findById(form.getPostId());
 
@@ -35,13 +36,13 @@ public class StudyApplicationService {
             throw new IllegalArgumentException("마감된 스터디입니다.");
         }
 
-        int exists = studyApplicationMapper.countByPostIdAndUserId(form.getPostId(), form.getUserId());
-        if (exists > 0) { // 신청 한 번했는데 또 할 수 없음
+        int exists = this.studyApplicationMapper.countByPostIdAndUserId(form.getPostId(), form.getUserId());
+        if (exists > 0) { // 신청을 한 번했는데 또 할 수 없음
             throw new IllegalArgumentException("이미 신청한 스터디입니다.");
         }
 
-        int approvedCount = studyApplicationMapper.countApprovedByPostId(form.getPostId());
-        if (approvedCount >= post.getMaxMembers()) { // 게시글에 정해진 최대인원을 넘어서서 신청할 수 없음
+        int approvedCount = this.studyApplicationMapper.countApprovedByPostId(form.getPostId());
+        if (approvedCount >= post.getMaxMembers()) {  // 게시글에 정해진 최대인원을 넘어서서 신청할 수 없음
             throw new IllegalArgumentException("모집 인원이 마감되었습니다.");
         }
 
@@ -70,19 +71,19 @@ public class StudyApplicationService {
 
     // 260422. 스터디신청 제약을 위해서 StudyPost 도 전달
     public void approve(Long applicationId, StudyPost post) {
-
+        
         // 스터디포스트 상태가 마감이면 더이상 승인불가
-        if ("CLOSED".equals(post.getStatus())) {
+        if ("CLOSED".equals(post.getStatus())) {            
             throw new IllegalArgumentException("모집이 마감되었습니다.");
         }
 
-        // 전체 멤버수를 넘어서는 신청은 거부
+        // 전체 멤버수를 넘어서는 신청은 거부        
         int approvedCount = this.studyApplicationMapper.countByPostIdApproved(post.getPostId());
 
         if (approvedCount >= post.getMaxMembers()) {
             throw new IllegalArgumentException("모집인원이 다 찼습니다.");
         }
-
+        
         // 전체 멤버수를 채우는 신청의 경우는 게시글포스트의 상태를 CLOSED로 변경
         // 신청 승인 로직
         studyApplicationMapper.updateStatus(applicationId, "APPROVED");
@@ -111,4 +112,3 @@ public class StudyApplicationService {
         }
     }
 }
-    

@@ -67,7 +67,7 @@ public class StudyApplicationController {
             
         } catch (IllegalArgumentException e) {
             bindingResult.reject("error", "이미 신청되었습니다.");
-            // post/detail.html에 초기화, 전달해줘야 함!!!
+            // 오류가 났기때문에 model값들을 /post/detail.html에 초기화, 전달해줘야 함!!!
             model.addAttribute("post", this.studyPostService.getPostDetail(postId));
             model.addAttribute("commentList", this.commentService.getCommentList(postId));
 
@@ -85,7 +85,7 @@ public class StudyApplicationController {
     }
 
     // 스터디 신청 승인
-    // 260422. 신청예외발생시 오류메시지 전달용 RedirectAttributes 추가
+    // 260422. 신청예외발생시 오류메시지 전달용 RedirectAttributes 파라미터 추가
     @PostMapping("/approve/{applicationId}")
     public String approve(@PathVariable Long applicationId,
                           HttpSession session,
@@ -110,12 +110,13 @@ public class StudyApplicationController {
         }
 
         try {
-            // postId도 같이 넘겨서 모집인원이 넘어가면 더이상 승인이 안되도록 할 것
-            this.studyApplicationService.approve(applicationId, post);
+            // postId도 같이 넘겨서 모집인원이 넘어가면 더이상 승인이 안되도록 할 것        
+            this.studyApplicationService.approve(applicationId, post);            
         } catch (IllegalArgumentException e) {
             // Model로 html에 전달하는 것과 동일
             redirectAttributes.addFlashAttribute("message", e.getMessage());
         }
+        
         return "redirect:/studypost/detail/" + application.getPostId();
     }
     

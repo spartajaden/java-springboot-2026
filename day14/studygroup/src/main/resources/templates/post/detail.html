@@ -10,13 +10,13 @@
     <table class="table table-bordered">
       <thead class="table-dark">
         <tr>
-          <th colspan="2" class="text-center">상세</th>
+          <th colspan="2" class="text-center" th:text="${post.title}"></th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th style="width: 150px">번호</th>
-          <td th:text="${post.postId}"></td>
+          <th style="width: 20%">번호</th>
+          <td style="width: 80%" th:text="${post.postId}"></td>
         </tr>
         <tr>
           <th>카테고리</th>
@@ -94,11 +94,11 @@
       아직 댓글이 없습니다.
     </div>
 
-    <!-- 댓글 리스트-->
+    <!-- 댓글리스트 -->
     <div th:each="comment : ${commentList}" class="border rounded p-2 mb-2">
       <div class="d-flex justify-content-between">
         <div>
-          <strong th:text="${comment.content}"></strong>
+          <strong th:text="${comment.writerName}"></strong>
           <span th:text="${comment.content}"></span>
           <small
             class="text-muted"
@@ -113,7 +113,7 @@
             style="display: inline"
           >
             <button type="submit" class="btn btn-sm btn-danger">
-              <i class=""></i>삭제
+              <i class="bi bi-trash-fill"></i> 삭제
             </button>
           </form>
         </div>
@@ -176,7 +176,7 @@
               type="submit"
               class="btn btn-sm btn-success"
             >
-              <i class="bi-hand-thumbs-up-fill"></i> 승인
+              <i class="bi bi-hand-thumbs-up-fill"></i> 승인
             </button>
           </form>
 
@@ -191,7 +191,7 @@
               type="submit"
               class="btn btn-sm btn-danger"
             >
-              <i class="hand-thumbs-down-fill"></i> 거절
+              <i class="bi bi-hand-thumbs-down-fill"></i> 거절
             </button>
           </form>
         </div>
@@ -199,9 +199,14 @@
     </div>
 
     <!-- 스터디 신청 영역 -->
-    <h4>스터디 신청</h4>
-    <!-- 승인 오류 발생시 -->
-    <div th:if="${message}" class="alert alert-danger" th:text="${message}">
+    <h5>스터디 신청</h5>
+    <!-- 승인 오류발생 시 표시 -->
+    <div
+      th:if="${message}"
+      class="alert alert-danger"
+      th:text="${message}"
+    ></div>
+
     <div
       th:if="${session.loginUser != null and session.loginUser.userId != post.userId}"
     >
@@ -224,18 +229,13 @@
             rows="1"
             placeholder="신청메시지를 입력하세요"
           ></textarea>
+          <div class="text-danger mt-1" th:errors="*{message}"></div>
         </div>
-
-        <div
-          class="error alert alert-danger"
-          th:if="${#fields.hasErrors('message')}"
-          th:errors="*{message}"
-        ></div>
 
         <!-- 스터디게시글 모집상태가 CLOSED면 버튼을 숨김 -->
         <div class="text-end" th:unless="${post.status == 'CLOSED'}">
           <button type="submit" class="btn btn-sm btn-warning">
-            <i class="bi bi-send-fill"></i>신청
+            <i class="bi bi-send-fill"></i> 신청
           </button>
         </div>
       </form>
@@ -244,7 +244,7 @@
     <div
       th:if="${session.loginUser != null and session.loginUser.userId == post.userId}"
     >
-      본인 포스트에는 신청할 수 없습니다.
+      본인 포스트에는 신청할 수 없습니다
     </div>
   </div>
 

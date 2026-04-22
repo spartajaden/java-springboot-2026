@@ -1,5 +1,6 @@
 package com.pknu26.studygroup.controller;
 
+import com.pknu26.studygroup.service.StudyApplicationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,10 +24,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommentController {
 
+    private final StudyApplicationService studyApplicationService;
     private final CommentService commentService;
     private final StudyPostService studyPostService;
 
-    @PostMapping("/create")
+    @PostMapping("/create")    
     public String create(@Valid CommentForm commentForm,
                          BindingResult bindingResult,
                          Model model,
@@ -35,7 +37,7 @@ public class CommentController {
 
         if (loginUser == null) {
             return "redirect:/user/login";
-        }   // 로그인 안했으면 로그인으로 이동
+        }  // 로그인을 안했으면 로그인으로 이동
 
         // 폼에서 댓글 내용을 입력하지 않고 댓글저장 버튼누르면 오류표시
         if (bindingResult.hasErrors()) {
@@ -44,11 +46,12 @@ public class CommentController {
             model.addAttribute("commentList", this.commentService.getCommentList(commentForm.getPostId()));
 
             model.addAttribute("commentForm", commentForm);
-            model.addAttribute("applicationList", null);
-            model.addAttribute("studyApplicationForm", null);
+            model.addAttribute("applicationList", this.studyApplicationService.getApplicationListByPostId(commentForm.getPostId()));
 
             StudyApplicationForm studyApplicationForm = new StudyApplicationForm();
-            studyApplicationForm.setPostId(null);
+            studyApplicationForm.setPostId(commentForm.getPostId());
+            studyApplicationForm.setUserId(loginUser.getUserId());
+            model.addAttribute("studyApplicationForm", studyApplicationForm);
 
             return "/post/detail";
         }
@@ -68,12 +71,12 @@ public class CommentController {
 
         if (loginUser == null) {
             return "redirect:/user/login";
-        }  // 로그인한 상태가 아니면 사용불가
+        }  // 로그인한 상태강 아니면 사용불가
 
         Comment comment = this.commentService.getComment(commentId);
         if (comment == null) {
             return "redirect:/studypost/list";
-        } // 해당 댓글 ID 글이 없으면 목록으로 
+        } // 해당 댓글 ID 글이 없으면 목록으로
 
         boolean isWriter = comment.getUserId().equals(loginUser.getUserId()); // 댓글 작성자와 동일인확인
         boolean isAdmin = "ROLE_ADMIN".equals(loginUser.getRole()); // 관리자인지 확인

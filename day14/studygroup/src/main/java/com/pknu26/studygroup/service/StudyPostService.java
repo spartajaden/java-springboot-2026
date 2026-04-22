@@ -17,6 +17,7 @@ public class StudyPostService {
     @Autowired
     private StudyPostMapper studyPostMapper;
 
+    // 예전 단순 리스트 조회에서
     // public List<StudyPost> getPostList() {
     //     return this.studyPostMapper.findAll();
     // }

@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.pknu26.studygroup.dto.Category;
 
-@Mapper
+@Mapper // ! 'com.pknu26.studygroup.mapper.CategoryMapper' that could not be found. 에러발생!
 public interface CategoryMapper {
-    
+
     List<Category> findAll();
 
     Category findById(Long categoryId);

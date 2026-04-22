@@ -41,9 +41,8 @@
                   th:if="${board.replyCount > 0}"
                   th:text=" ' [' + ${board.replyCount} + ']'"
                   class="text-danger"
-                >
-                </span>
-              </td> 
+                ></span>
+              </td>
               <td class="text-center" th:text="${board.writer}"></td>
               <!-- 날짜포맷 변경 함수 #temporals.format(date, 'yyyy-MM-dd HH:mm:ss') -->
               <!-- <td th:text="${board.createDate}"></td> -->
