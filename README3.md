@@ -60,6 +60,8 @@ StudyGroup
 
   ![alt text](image-39.png)
 
+  ![alt text](image-41.png)
+
 #### 조회수 증가
 
 - 스터디포스트 상세보기 확인
@@ -77,6 +79,8 @@ StudyGroup
   - controller, CommentController 클래스
   - controller, StudyPostController.detail() 댓글 목록, 폼 추가
   - html, post/detail.html 화면 추가
+
+  ![alt text](image-42.png)
 
 - 스터디신청 기능
   - dto, StudyApplication 클래스
@@ -104,19 +108,16 @@ StudyGroup
 - [x] 컨트롤러 post 메서드 파라미터 순서 중요
   - 입력검증 파라미터 다음에 BingResult가 위치해야 함!
   - @Valid CommentForm commentForm, BindingResult bindingResult, ...
-
 - [x] 스터디 신청 문제 - 신청리스트 띄워서 일반 반정도 완료
   - 중복신청 알림 없음
   - 신청 후 메시지 없음
 - [x] 각 입력품 에러메시지 디자인 동일
   - 글로벌 에러는 alert 디자인으로
   - 각 입력별 에러메시지는 단순 빨간색으로
-
-- [ ] 전체 인원이 2명인데 3명 승인 가능
+- [x] 전체 인원이 2명인데 3명 승인 가능
 - [x] 승인한 멤버에 대해서 다시 거절하는 기능
 - [x] 인원이 전부 신청승인되고나면 스터디포스트 자체 상태가 CLOSED가 되어야 함
-- [ ] 마감된 스터디에 신청버튼이 존재
-- 스터디포스트 페이징
+- [x] 마감된 스터디에 신청버튼이 존재
 
 - [x] 스터디포스트 페이징
   - BoardMapper.xml 참조해서 StudyPostMapper.xml findAll 메서드 변경
@@ -129,10 +130,10 @@ StudyGroup
 - [x] 게시판 작성자 입력 불필요
   - dto.BoardForm @NotBlank 어노테이션 삭제
 - [x] 게시판 댓글 등록 오류메시지 미출력
-  - RedirectAttributes
+  - RedirectAttributes 파라미터 사용
 - [x] 기존 게시판 상세 디자인 StudyPost 상세 형태와 동일하게 변경
 - [x] 로그아웃 후 home으로 이동
-- [ ] 전체 푸터 작업
+- [x] 전체 푸터 작업
   - Bootstrap 클래스만으로 가능
 
 - favicon 추가

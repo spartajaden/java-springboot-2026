@@ -1,7 +1,6 @@
 package com.pknu26.studygroup.controller;
 
 import com.pknu26.studygroup.service.StudyApplicationService;
-import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,12 +37,13 @@ public class StudyPostController {
 
     private final StudyPostService studyPostService;
 
-    // 스터티포스트 입력시 카테고리를 선택할 콤보박스 바인딩용
+    // 스터디포스트 입력시 카테고리를 선택할 콤보박스 바인딩용
     private final CategoryService categoryService;
 
     private final CommentService commentService; // 260421. 댓글서비스 추가
 
-    @GetMapping("/list") // http://localhost:8080/studypost/list
+    // 260422 페이징 추가
+    @GetMapping("/list")  // http://localhost:8080/studypost/list
     public String list(@ModelAttribute PageRequest pageRequest, Model model, HttpSession session) {
         LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
 
@@ -54,7 +54,7 @@ public class StudyPostController {
         // 단순 리스트조회 시 사용한 방법
         // List<StudyPost> postList = this.studyPostService.getPostList();
         // model.addAttribute("postList", postList);
-        // 페이징으로 변경 후
+        // 페이징으로 변경 후 
         model.addAttribute("response", this.studyPostService.getPostList(pageRequest));
         return "/post/list";  // templates/post/list.html 
     }
@@ -68,9 +68,11 @@ public class StudyPostController {
         }
 
         StudyPostForm studyPostForm = new StudyPostForm();
-
-        model.addAttribute("studyPostForm", studyPostForm);
         
+        model.addAttribute("studyPostForm", studyPostForm);
+        // 콤보박스용 데이터 모델
+        model.addAttribute("categoryList", this.categoryService.getCategoryList());
+
         return "/post/form"; // templates/post/form.html
     }
 
@@ -98,6 +100,7 @@ public class StudyPostController {
     }
 
     // 댓글 기능 추가
+    // 스터디게시글 상세보기
     @GetMapping("/detail/{postId}")
     public String detail(@PathVariable Long postId, Model model, HttpSession session) {
         LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
@@ -112,25 +115,25 @@ public class StudyPostController {
         }
 
         // templates/post/detail.html로 아래 model 객체를 전달
-        model.addAttribute("post", post); // 최초
+        model.addAttribute("post", post);  // 01. 최초 
         // 02.댓글리스트 추가
-        model.addAttribute("commentList", this.commentService.getCommentList(postId)); // 댓글리스트
+        model.addAttribute("commentList", this.commentService.getCommentList(postId)); 
 
         // 03.댓글작성 영역 추가
         CommentForm commentForm = new CommentForm();
         commentForm.setPostId(postId);
         model.addAttribute("commentForm", commentForm);  // 댓글작성폼
 
-        // 04. 스터디신청 리스트 추가
+        // 04.스터디신청 리스트 추가
         model.addAttribute("applicationList", this.studyApplicationService.getApplicationListByPostId(postId));
 
-        // 05. 스터디신청 영역 추가
+        // 05.스터디신청 영역 추가
         StudyApplicationForm form = new StudyApplicationForm();
         form.setPostId(postId);
         model.addAttribute("studyApplicationForm", form);
-        
+
         return "/post/detail";   // templates/post/detail.html
-    } 
+    }
 
     @PostMapping("/delete/{postId}")
     public String delete(@PathVariable Long postId,
@@ -160,7 +163,7 @@ public class StudyPostController {
         return "redirect:/studypost/list";
     }
 
-        @GetMapping("/edit/{postId}")
+    @GetMapping("/edit/{postId}")
     public String editForm(@PathVariable Long postId,
                         Model model,
                         HttpSession session) {
@@ -228,5 +231,5 @@ public class StudyPostController {
         this.studyPostService.updatePost(studyPostForm);
 
         return "redirect:/studypost/detail/" + postId;
-    }    
+    }
 }
