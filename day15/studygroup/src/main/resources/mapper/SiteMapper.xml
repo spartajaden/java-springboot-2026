@@ -9,15 +9,27 @@
              , content_key
              , content_body
              , created_at
+             , use_yn
           FROM site_content
          ORDER BY id DESC
     </select>
+
+    <select id="findAllActive" resultType="Site">
+    SELECT id
+         , content_key
+         , content_body
+         , created_at
+         , use_yn
+      FROM site_content
+     WHERE use_yn = 'Y'
+</select>
 
     <select id="findById" parameterType="long" resultType="Site">
         SELECT id
              , content_key
              , content_body
              , created_at
+             , use_yn
           FROM site_content
          WHERE id = #{id}
     </select>
@@ -27,6 +39,7 @@
              , content_key
              , content_body
              , created_at
+             , use_yn
           FROM site_content
          WHERE content_key = #{contentKey}
     </select>
@@ -42,12 +55,14 @@
             id,
             content_key,
             content_body,
-            created_at
+            created_at,
+            use_yn
         ) VALUES (
             seq_site_content.NEXTVAL,
             #{contentKey},
             #{contentBody},
-            SYSDATE
+            SYSDATE,
+            'Y'
         )
     </insert>
 
@@ -55,11 +70,12 @@
         UPDATE site_content
            SET content_key = #{contentKey}
              , content_body = #{contentBody} 
+             , use_yn = #{useYn}
          WHERE id = #{id}
     </update>
 
     <delete id="delete" parameterType="long">
         DELETE FROM site_content
-        WHERE id = #{id}
+         WHERE id = #{id}
     </delete>
 </mapper>

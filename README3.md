@@ -144,14 +144,40 @@ StudyGroup
 
 #### 관리자 홈관리화면
 
-- Site_Content 테이블 생성
-- dto, Site 클래스
-- validation, SiteForm 클래스
-- mapper, SiteMapper 인터페이스
-- controller, SiteController 클래스
-- templates/mapper, SiteMapper.xml
-- service, SiteService 클래스
+- 컨텐츠 관리
+  - Site_Content 테이블 생성
+  - dto, Site 클래스
+  - validation, SiteForm 클래스
+  - mapper, SiteMapper 인터페이스
+  - templates/mapper, SiteMapper.xml
+  - service, SiteService 클래스
+  - controller, SiteController 클래스
+  - controller, HomeController home 메서드 추정
 
+  ![alt text](image-46.png)
+
+- 이미지 관리
+  - application.properties 에 저장경로 설정!
+  - config, 
+  - config, WebMvcConfig 클래스 추가
+  - Site_Image 테이블 생성
+  - dto, SiteImage 클래스
+  - validation, SiteImageForm 클래스
+  - mapper, SiteImageMapper 인터페이스
+  - templates/mapper, SiteImageMapper.xml
+  - service, SiteImageService 클래스
+  - controller, SiteImageController 클래스
+  - controller, HomeController home 메서드 추정
+
+## 16일차
+
+### StudyGroup 계속
+
+#### 관리자 홈관리 중 이미지 처리
+
+- 이미지 관리 계속
+  - 
+  
 #### 남은 이슈
 
 - [x] favicon 추가
@@ -170,10 +196,10 @@ StudyGroup
   - 현재 화면
 
 
+- 파일 업로드
 
 - Spring Security
 - JWT
-- 파일 업로드
 
 - 미니프로젝트 팀 구성
 - 미니프로젝트 주제

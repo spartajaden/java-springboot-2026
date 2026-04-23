@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.pknu26.studygroup.config.FileProperties;
+
 @SpringBootApplication
 public class StudygroupApplication {
 
@@ -13,6 +15,10 @@ public class StudygroupApplication {
 		System.out.println("password - " + encoded);
 
 		SpringApplication.run(StudygroupApplication.class, args);
+		
+		FileProperties properties = new FileProperties();
+		
+		System.out.println("uploadDir - " + uploadDir);
 	}
 
 }

@@ -11,6 +11,8 @@ public interface SiteMapper {
 
     List<Site> findAll();
 
+    List<Site> findAllActive(); // 사용여부 Y인 컨텐츠만 조회
+
     Site findById(Long id);
 
     Site findByContentKey(String contentKey);

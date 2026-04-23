@@ -7,11 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Site {
-    private Long id;
-    private String contentKey;
-    private String contentBody;
-    private LocalDateTime createdAt;
+public class SiteImage {
 
-    private String useYn; // 사용여부
+    private Long id;
+    private String imageKey;
+    private String imagePath;
+    private String useYn;
+    private LocalDateTime createdAt;
 }

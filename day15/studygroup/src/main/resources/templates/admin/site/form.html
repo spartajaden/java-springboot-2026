@@ -26,7 +26,17 @@
             th:field="*{categoryName}"
             class="form-control"
           />
-          <div class="text-danger mt-1" th:errors="*{categoryName}" />
+          <div class="text-danger mt-1" th:errors="*{categoryName}" >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label for="useYn" class="form-label">사용유무</label>
+          <select id="useYn" th:field="*{useYn}" class="form-select">
+            <option value="Y">사용</option>
+            <option value="N">미사용</option>
+          </select>
         </div>
       </div>
 

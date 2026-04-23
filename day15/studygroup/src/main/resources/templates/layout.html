@@ -171,13 +171,13 @@
               class="nav-item"
               th:if="${session.loginUser != null and session.loginUser.role == 'ROLE_ADMIN'}"
             >
-              <a class="nav-link" th:href="@{/admin/categories}">Category</a>
+              <a class="nav-link" th:href="@{/admin/categories}">Site Mng</a>
             </li>
             <li
               class="nav-item"
               th:if="${session.loginUser != null and session.loginUser.role == 'ROLE_ADMIN'}"
             >
-              <a class="nav-link" th:href="@{/admin/site/list}">Site</a>
+              <a class="nav-link" th:href="@{/admin/site/list}">Image Mng</a>
             </li>
             <!-- <li class="nav-item">
               <a class="nav-link disabled" aria-disabled="true">Disabled</a>
