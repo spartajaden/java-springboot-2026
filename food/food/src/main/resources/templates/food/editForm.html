@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8">
+    <title>음식 정보 수정</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container py-5">
+      <div class="card mx-auto" style="max-width: 700px;">
+        <div class="card-header bg-primary text-white text-center">
+          <h4>🍴 음식 정보 수정</h4>
+          <small>기록된 미식 경험을 수정합니다</small>
+        </div>
+
+        <div class="card-body p-4">
+          <form th:action="@{/food/edit}" th:object="${food}" method="post">
+            <input type="hidden" th:field="*{id}">
+              
+              <div class="mb-3">
+                <label class="form-label">😋 음식 이름</label>
+                <input type="text"
+                       th:field="*{name}"
+                       class="form-control" />
+              </div>
+
+              <div class="row">
+                <div class="col">
+                    <label class="form-label">📂 카테고리</label>
+                    <select th:field="*{category}" class="form-select">
+                      <option value="한식">한식</option>
+                      <option value="일식">일식</option>
+                      <option value="중식">중식</option>
+                      <option value="양식">양식</option>
+                      <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">⭐ 별점</label>
+                  <select th:field="*{rating}" class="form-select">
+                    <option th:each="i : ${#numbers.sequence(5,1)}"
+                            th:value="${i}"
+                            th:text="${'⭐'.repeat(i)}">
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">📅 방문일자</label>
+                <input type="date"
+                       th:field="*{eatDate}"
+                       class="form-control" />
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label">📝 맛 평점 및 메모</label>
+                <textarea th:field="*{memo}"
+                          class="form-control"
+                          rows="4"
+                ></textarea>
+              </div>
+
+              <div class="d-flex justify-content-center gap-2">
+                 <button type="submit" class="btn btn-sm btn-primary">
+                    수정 완료
+                 </button>
+                 <a th:href="@{/food/list}" class="btn btn-sm btn-secondary">
+                    취소하고 돌아가기
+                 </a>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -91,8 +91,6 @@ StudyGroup
   - controller, StudyApplicationController 클래스
   - html, post/detail.html 화면 추가
 
-  ![alt text](image-40.png)
-
 ## 14일차
 
 #### 스터디모집 신청 계속
@@ -102,6 +100,8 @@ StudyGroup
 - Controller는 사용자의 요청을 받아서 Service로 전달한 뒤 받은 결과를 View로 출력하는 기능. 로그인세션 처리
 - Service는 요청에서 Model로 데이터 요청, 돌려받아서 비즈니스로직 처리
 - View는 돌려받은 데이터들을 표현
+
+  ![alt text](image-43.png)
 
 #### 필요이슈
 
@@ -136,12 +136,45 @@ StudyGroup
 - [x] 전체 푸터 작업
   - Bootstrap 클래스만으로 가능
 
-- favicon 추가
-- 에러페이지 필요
+![alt text](image-44.png)
+
+## 15일차
+
+### StudyGroup 계속
+
+#### 관리자 홈관리화면
+
+- Site_Content 테이블 생성
+- dto, Site 클래스
+- validation, SiteForm 클래스
+- mapper, SiteMapper 인터페이스
+- controller, SiteController 클래스
+- templates/mapper, SiteMapper.xml
+- service, SiteService 클래스
+
+#### 남은 이슈
+
+- [x] favicon 추가
+  - 자동인식방법 resources/static.favicon.ico
+  - png to ico 변환필요
+
+![alt text](image-45.png)
+
+- [x] 에러페이지 필요 - 디자인만 잘하면 됨
+  - 404 에러 : Page Not Found
+  - 500 에러 : Internel Server 
+
 - home.html 관리자 관리할 화면 생성
+  - Hero 이미지 : 웹 전체 화면을 채우는 배경이미지
+  - Carousel : 이미지가 일정시간마다 전환, 또는 버튼클릭으로 전환되는 디자인
+  - 현재 화면
+
+
+
 - Spring Security
 - JWT
 - 파일 업로드
 
 - 미니프로젝트 팀 구성
 - 미니프로젝트 주제
+
