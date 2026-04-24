@@ -31,7 +31,7 @@ public class FoodController {
         List<Food> foodList = foodMapper.selectAllFoods(offset, size, keyword, category);
         long totalCount = foodMapper.countFoods(keyword, category);
 
-        PageResponse pageResponse = new PageResponse(foodList, totalCount, page, size);
+        PageResponse<Food> pageResponse = new PageResponse<>(foodList, totalCount, page, size);
 
         model.addAttribute("pageResponse", pageResponse);
         model.addAttribute("keyword", keyword);

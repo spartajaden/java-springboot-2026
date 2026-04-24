@@ -14,11 +14,11 @@ public class PageResponse<T> {
     private boolean hasPrev;
     private boolean hasNext;
 
-    public PageResponse(List<T> content, int page, int size, long totalCount) {
+    public PageResponse(List<T> content, long totalCount2, int size, long totalCount) {
         this.content = content;
-        this.currentPage = page;
+        this.currentPage = (int) totalCount2;
         this.totalPages = (int) Math.ceil((double) totalCount / size);
-        this.endPage = (int) (Math.ceil(page / 5.0)) * 5;
+        this.endPage = (int) (Math.ceil(totalCount2 / 5.0)) * 5;
         this.startPage = endPage - 4;
 
         if (totalPages < endPage) endPage = totalPages;
