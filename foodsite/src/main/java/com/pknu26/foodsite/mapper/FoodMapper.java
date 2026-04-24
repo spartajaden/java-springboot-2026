@@ -6,14 +6,15 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.pknu26.foodsite.controller.FoodController;
+import com.pknu26.foodsite.dto.Food;
 
 @Mapper
 public interface FoodMapper {
     List<FoodController> selectAllFoods(@Param("offset") int offset, @Param("size") int size, 
                               @Param("keyword") String keyword, @Param("category") String category);
     long countFoods(@Param("keyword") String keyword, @Param("category") String category);
-    void insertFood(FoodController food);
+    void insertFood(Food food);
     FoodController selectFoodById(Long id);
-    void updateFood(FoodController food);
+    void updateFood(Food food);
     void deleteFood(Long id);
 }
