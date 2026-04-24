@@ -11,6 +11,8 @@ public interface SiteImageMapper {
 
     List<SiteImage> findAll();
 
+    List<SiteImage> findAllActive(); // 260424 useYn Y만 조회
+
     SiteImage findById(Long id);
 
     SiteImage findByImageKey(String imageKey);

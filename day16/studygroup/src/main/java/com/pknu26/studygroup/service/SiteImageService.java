@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pknu26.studygroup.config.FileProperties;
+import com.pknu26.studygroup.dto.HomeContent;
 import com.pknu26.studygroup.dto.SiteImage;
 import com.pknu26.studygroup.mapper.SiteImageMapper;
 import com.pknu26.studygroup.validation.SiteImageForm;
@@ -22,6 +23,22 @@ public class SiteImageService {
 
     public List<SiteImage> getImageList() {
         return this.siteImageMapper.findAll();
+    }
+
+    // 홈화면에서만 사용하는 서비스 메서드
+    public HomeContent getImageListActive() {
+        List<SiteImage> list = this.siteImageMapper.findAllActive();
+
+        HomeContent homeImage = new HomeContent();
+        
+        for (SiteImage siteImage : list) {
+            switch (siteImage.getImageKey()) {
+                case "CAROUSEL_1_IMG" -> homeImage.setCaro1ImagePath(siteImage.getImagePath());
+                case "CAROUSEL_2_IMG" -> homeImage.setCaro2ImagePath(siteImage.getImagePath());
+                case "CAROUSEL_3_IMG" -> homeImage.setCaro3ImagePath(siteImage.getImagePath());
+            }
+        }
+        return homeImage;
     }
 
     public SiteImage getImage(Long id) {
@@ -39,7 +56,7 @@ public class SiteImageService {
 
         // DB에 담을 내용을
         SiteImage siteImage = new SiteImage();
-        siteImage.setImageKey(form.getImageKey());
+        siteImage.setImageKey(form.getImageKey().trim()); // "CAROUSEL_1_IMG  " -> "CAROUSEL_1_IMG"
         siteImage.setImagePath(imagePath);
         siteImage.setUseYn(form.getUseYn());
 

@@ -12,7 +12,7 @@ public class HomeContent {
     
     String caro2Title;
     String caro2Content;
-    String caro2ImagePath;
+    String caro2ImagePath; // 260424. caro2
     
     String caro3Title;
     String caro3Content;
