@@ -1,8 +1,11 @@
 package com.pknu26.studygroup.service;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pknu26.studygroup.config.FileProperties;
 import com.pknu26.studygroup.dto.SiteImage;
@@ -25,7 +28,55 @@ public class SiteImageService {
         return this.siteImageMapper.findById(id);
     }
 
+    // 파일(이미지) 업로드 핵심
     public void create(SiteImageForm form) throws Exception {
+        MultipartFile file = form.getImageFile();
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("이미지 파일을 선택하세요.");
+        }
 
+        String imagePath = saveFile(file); // 파일 실제저장
+
+        // DB에 담을 내용을
+        SiteImage siteImage = new SiteImage();
+        siteImage.setImageKey(form.getImageKey());
+        siteImage.setImagePath(imagePath);
+        siteImage.setUseYn(form.getUseYn());
+
+        this.siteImageMapper.insert(siteImage);
+    }
+
+    public void update(SiteImageForm form) throws Exception {
+        // TODO
+    }
+
+    public void delete(Long id) {
+        this.siteImageMapper.delete(id);
+    }
+
+    private String saveFile(MultipartFile file) throws Exception {
+        String uploadDir = fileProperties.getUploadDir(); // D:/upload/studygroup
+        String accessUrl = fileProperties.getAccessUrl(); // /upload/site
+
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {   // 폴더가 존재하지 않으면 
+            dir.mkdir();  // 폴더 생성
+        }
+
+        // 파일 오리지널명
+        String originName = file.getOriginalFilename();
+        String ext = ""; // 파일 확장자 .png, .jpg, .gif
+
+        // rabbit01.png
+        if (originName != null && originName.lastIndexOf(".") != -1) {
+            ext = originName.substring(originName.lastIndexOf("."));
+        }
+        // 또 다른업로드에서 rabbit01.png를 업로드하면 충돌 --> 해결
+        // 이름 새로변경 UUID(Universally Unique Identifier)
+        String saveName = UUID.randomUUID() + ext; // 550e8400-e29b-41d4-a716-446655440000.png
+        File dest = new File(uploadDir + saveName); // 새로 저장할 파일객체 생성
+        file.transferTo(dest);
+
+        return accessUrl + saveName;
     }
 }

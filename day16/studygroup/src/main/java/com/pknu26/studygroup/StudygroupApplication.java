@@ -24,8 +24,8 @@ public class StudygroupApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
-		System.out.println("uploadDir = " + uploadDir.toAbsolutePath());
+
+		System.out.println("uploadDir = " + fileProperties.getUploadDir());
 		System.out.println("accessUrl = " + fileProperties.getAccessUrl());
 	}
 
