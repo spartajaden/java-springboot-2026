@@ -42,7 +42,8 @@ public class FoodController {
 
     // 나머지는 동일
     @GetMapping("/add")
-    public String addForm() {
+    public String addForm(Model model) {
+        model.addAttribute("food", new Food());  
         return "food/addForm";
     }
 
