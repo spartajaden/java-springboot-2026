@@ -295,6 +295,12 @@ This generated password is for development use only. Your security configuration
 
 - 테스트 콘트롤러
 
+## 18일차
+
+### JWT 계속
+
+### 구글 로그인
+
 ### 남은 이슈
 
 - [x] favicon 추가
@@ -311,7 +317,6 @@ This generated password is for development use only. Your security configuration
   - Hero 이미지 : 웹 전체 화면을 채우는 배경이미지
   - Carousel : 이미지가 일정시간마다 전환, 또는 버튼클릭으로 전환되는 디자인
   - 현재 화면
-
 
 - 파일 업로드
 

@@ -18,7 +18,7 @@
         </div>
 
         <div class="card-body p-4">
-          <form th:action="@{/food/edit}" th:object="${food}" method="post">
+          <form th:action="@{/food/edit/{id}(id=${food.id})}" th:object="${food}" method="post">
             <input type="hidden" th:field="*{id}">
               
               <div class="mb-3">

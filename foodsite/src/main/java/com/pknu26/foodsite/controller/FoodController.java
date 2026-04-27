@@ -31,7 +31,7 @@ public class FoodController {
         List<Food> foodList = foodMapper.selectAllFoods(offset, size, keyword, category);
         long totalCount = foodMapper.countFoods(keyword, category);
 
-        PageResponse pageResponse = new PageResponse(foodList, totalCount, page, size);
+        PageResponse<Food> pageResponse = new PageResponse<>(foodList, totalCount, page, size);
 
         model.addAttribute("pageResponse", pageResponse);
         model.addAttribute("keyword", keyword);
@@ -42,7 +42,8 @@ public class FoodController {
 
     // 나머지는 동일
     @GetMapping("/add")
-    public String addForm() {
+    public String addForm(Model model) {
+        model.addAttribute("food", new Food());  
         return "food/addForm";
     }
 

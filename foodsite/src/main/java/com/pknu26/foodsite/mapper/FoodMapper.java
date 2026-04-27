@@ -10,11 +10,11 @@ import com.pknu26.foodsite.dto.Food;
 
 @Mapper
 public interface FoodMapper {
-    List<FoodController> selectAllFoods(@Param("offset") int offset, @Param("size") int size, 
+    List<Food> selectAllFoods(@Param("offset") int offset, @Param("size") int size, 
                               @Param("keyword") String keyword, @Param("category") String category);
     long countFoods(@Param("keyword") String keyword, @Param("category") String category);
     void insertFood(Food food);
-    FoodController selectFoodById(Long id);
+    Food selectFoodById(Long id);
     void updateFood(Food food);
     void deleteFood(Long id);
 }
