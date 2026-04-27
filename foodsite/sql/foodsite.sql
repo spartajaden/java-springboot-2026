@@ -7,15 +7,12 @@ CREATE TABLE FOOD (
     EAT_DATE    DATE NOT NULL,
     CREATED_AT  DATE DEFAULT SYSDATE NOT NULL
 );
--- ID 자동 증가 PK
--- NAME 음식이름
--- CATEGORY 음식종류 '한식', '일식', '중식', '양식' 등...
--- RATING 1 ~ 5 점수
--- MEMO 음식에 대한 품평
--- EAT_DATE 음식 먹은 날짜
--- CREATED_AT 작성일자
 
 CREATE SEQUENCE FOOD_SEQ
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
+
+COMMIT;
+
+SELECT table_name FROM user_tables WHERE table_name = 'FOOD';

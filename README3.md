@@ -227,11 +227,21 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
 
 - 의존성 추가
 - 비밀번호 암호화 PasswordEncoder 등록
-- UserDetailsService 생성
+- CustomUserDetails 생성
+- UserDetailsServervice 생성
 - SecurityConfig 생성
-- 로그인 페이지 연결
-- 권한별 URL 제한
+- 기존 UserController 수정
+- 로그인 페이지 수정
+- layout.html SpringSecurity thymeleaf 추가
+  - session.loginUser 제거
+  - sec:authorize 속성으로 변경
 - Thymeleaf 로그인/관리자 조건 처리
+
+```html
+<!-- 제거 -->
+<div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+  <p th:each="err :>
+```
 
 #### Spring Security 개발
 
@@ -244,7 +254,21 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
 
 ### Spring Sercurity
 
-...
+#### build.gradle 적용
+
+- 서버 실행
+
+```powershell
+2026-04-27T09:19:59.368+09:00  WARN 36280 --- [studygroup] [  restartedMain] .s.a.UserDetailsServiceAutoConfiguration :
+# User 임시 패스워드
+Using generated security password: b93d0cb3-0285-4c64-b43f-51398f1b7dcf
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+```
+
+- Spring Security Crpto 라이브러리 -> 제거
+
+  ![alt text](image-52.png)
 
 ### JWT
 
@@ -254,7 +278,24 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
   - React, Node.js 등의 다른 프론트앤드와 연계하는 풀스택개발시 사용하는 인증방식
   - 서버에 세션을 저장안함. 토큰으로 인증 대체
 
-#### 남은 이슈
+#### JWT 반영순서
+
+- 로그인 > JWT 발급 > 요청 시 JWT 검증 > 인증처리
+
+#### 진행순서
+
+- build.gradle 의존성 추가
+- application.properties JWT 설정 추가
+- config, JwtProvider 클래스 생성
+
+- dto/api, API 요청/응답용 dto 생성
+- security, JwtAuthenticationFilter 클래스 생성
+- controller, ApiAuthController 클래스 생성
+- config, SecurityConfig 수정
+
+- 테스트 콘트롤러
+
+### 남은 이슈
 
 - [x] favicon 추가
   - 자동인식방법 resources/static.favicon.ico
@@ -270,6 +311,7 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
   - Hero 이미지 : 웹 전체 화면을 채우는 배경이미지
   - Carousel : 이미지가 일정시간마다 전환, 또는 버튼클릭으로 전환되는 디자인
   - 현재 화면
+
 
 - 파일 업로드
 
