@@ -28,6 +28,4 @@ public class StudygroupApplication implements CommandLineRunner {
 		System.out.println("uploadDir = " + fileProperties.getUploadDir());
 		System.out.println("accessUrl = " + fileProperties.getAccessUrl());
 	}
-
-	
 }
