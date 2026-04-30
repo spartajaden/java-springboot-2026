@@ -113,6 +113,7 @@ public class BoardController {
         // #PRC05 - 입력에 에러가 있으면 다시 폼화면으로 이동
         if (bindingResult.hasErrors()) {
             // throw new Exception("가짜 에러!");
+            System.out.println(bindingResult.getAllErrors());
             return "/board/form";
         }
 

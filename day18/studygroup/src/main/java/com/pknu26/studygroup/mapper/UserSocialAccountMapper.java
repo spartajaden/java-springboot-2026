@@ -1,6 +1,7 @@
 package com.pknu26.studygroup.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.pknu26.studygroup.dto.UserSocialAccount;
 
@@ -8,8 +9,8 @@ import com.pknu26.studygroup.dto.UserSocialAccount;
 public interface UserSocialAccountMapper {
 
     UserSocialAccount findByProviderAndProviderUserId(
-        String provider,
-        String providerUserId
+        @Param("provider") String provider,
+        @Param("providerUserId") String providerUserId
     );
 
     void insertSocialAccount(UserSocialAccount socialAccount);

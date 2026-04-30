@@ -52,6 +52,7 @@
     </select>
 
     <insert id="insertSocialUser" parameterType="User">
+        -- password null 처리 --
         INSERT INTO USER_ACCOUNT (
             USER_ID,
             LOGIN_ID,
@@ -62,7 +63,7 @@
         ) VALUES (
             #{userId},
             #{loginId},
-            #{password},
+            null,
             #{name},
             #{role},
             SYSDATE

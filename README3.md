@@ -197,7 +197,9 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
 - [ ] Footer 영역, Privacy(개인정보처리방침), Terms(정책) 추가 개발필요
 - [ ] 각 입력태그에 PlaceHolder 추가
 - [ ] 게시판 댓글 작성자 로그인 아이디 바로 표시하게
-- Carousel 기능과 동일하게 구현
+
+- [ ] Features, Gallary 부분 관리자 데이터 처리, 홈화면 이미지 표시
+  - Carousel 기능과 동일하게 구현
 
 ![alt text](image-49.png)
 
@@ -240,8 +242,13 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
 ```html
 <!-- 제거 -->
 <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
-  <p th:each="err :>
+  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+</div>
 ```
+
+- Controller에서 HttpSession 파라미터 제거
+  - @AuthenticationPrincipal CustomUserDetails loginUser 로 변경
+  - 코드 상 LoginUser... 부분 주석처리
 
 #### Spring Security 개발
 
@@ -316,7 +323,6 @@ This generated password is for development use only. Your security configuration
 - Postman 테스트
 
 ![alt text](image-54.png)
-
 - 로그인 실패하면 로그인화면으로 다시 돌아감
 - 성공하면 json를 리턴
 
@@ -419,7 +425,16 @@ JWT API Login
 
 ![alt text](image-58.png)
 
+![alt text](image-62.png)
 
+- Google 환경 로그
+  ![alt text](image-59.png)
+
+- 구글 로그인
+
+![alt text](image-60.png)
+
+![alt text](image-61.png)
 
 ### 남은 이슈
 

@@ -7,7 +7,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +64,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 user.setName(name);                          
                 user.setRole("ROLE_USER");
 
-                userMapper.insertSocialUser(user); // 기존회원가입(join)과 방식이 다름
+                userMapper.insertSocialUser(user); // 기존회원가입(join)과 방식이 다름 // 260430
             }
 
             // 소셜사용자계정도 DB저장
@@ -81,9 +80,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         // Spring Security가 객체를 사용할 수 있도록 리턴
-        return new DefaultOAuth2User(
+        // 260430 DefaultOAuth2UserDetail -> CustomOAuth2UserDetails 변경해야 세션저장
+        return new CustomOAuth2UserDetails (
+                user,
                 List.of(new SimpleGrantedAuthority(user.getRole())), 
                 attributes, 
-                "sub");
+                "name"); // sub -> name
     }    
 }
