@@ -20,4 +20,6 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
-SELECT table_name FROM user_tables WHERE table_name = 'FOOD';
+--SELECT table_name FROM user_tables WHERE table_name = 'FOOD';
+
+SELECT * FROM FOOD;
