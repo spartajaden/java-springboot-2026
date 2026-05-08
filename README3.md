@@ -197,7 +197,9 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
 - [ ] Footer 영역, Privacy(개인정보처리방침), Terms(정책) 추가 개발필요
 - [ ] 각 입력태그에 PlaceHolder 추가
 - [ ] 게시판 댓글 작성자 로그인 아이디 바로 표시하게
-- Carousel 기능과 동일하게 구현
+
+- [ ] Features, Gallary 부분 관리자 데이터 처리, 홈화면 이미지 표시
+  - Carousel 기능과 동일하게 구현
 
 ![alt text](image-49.png)
 
@@ -227,11 +229,26 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
 
 - 의존성 추가
 - 비밀번호 암호화 PasswordEncoder 등록
-- UserDetailsService 생성
+- CustomUserDetails 생성
+- UserDetailsServervice 생성
 - SecurityConfig 생성
-- 로그인 페이지 연결
-- 권한별 URL 제한
+- 기존 UserController 수정
+- 로그인 페이지 수정
+- layout.html SpringSecurity thymeleaf 추가
+  - session.loginUser 제거
+  - sec:authorize 속성으로 변경
 - Thymeleaf 로그인/관리자 조건 처리
+
+```html
+<!-- 제거 -->
+<div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+</div>
+```
+
+- Controller에서 HttpSession 파라미터 제거
+  - @AuthenticationPrincipal CustomUserDetails loginUser 로 변경
+  - 코드 상 LoginUser... 부분 주석처리
 
 #### Spring Security 개발
 
@@ -244,7 +261,21 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
 
 ### Spring Sercurity
 
-...
+#### build.gradle 적용
+
+- 서버 실행
+
+```powershell
+2026-04-27T09:19:59.368+09:00  WARN 36280 --- [studygroup] [  restartedMain] .s.a.UserDetailsServiceAutoConfiguration :
+# User 임시 패스워드
+Using generated security password: b93d0cb3-0285-4c64-b43f-51398f1b7dcf
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+```
+
+- Spring Security Crpto 라이브러리 -> 제거
+
+  ![alt text](image-52.png)
 
 ### JWT
 
@@ -254,7 +285,158 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
   - React, Node.js 등의 다른 프론트앤드와 연계하는 풀스택개발시 사용하는 인증방식
   - 서버에 세션을 저장안함. 토큰으로 인증 대체
 
-#### 남은 이슈
+#### JWT 반영순서
+
+- 로그인 > JWT 발급 > 요청 시 JWT 검증 > 인증처리
+
+#### 진행순서
+
+- build.gradle 의존성 추가
+  - https://mvnrepository.com/ 에서 확인
+- application.properties JWT 설정 추가
+- config, JwtProvider 클래스 생성
+
+- dto/api, API 요청/응답용 dto 생성
+- security, JwtAuthenticationFilter 클래스 생성
+- controller, ApiAuthController 클래스 생성
+- config, SecurityConfig 수정
+
+- 테스트 콘트롤러
+
+## 18일차
+
+### JWT 계속
+
+#### CORS, CSRF
+
+- CORS : Cross-Origin Resource Sharing 프로토콜
+  - 서로다른 오리진(서버)에서 리소스나 상호작용을 위해 브라우주에서 실행되는 스크립트
+  - 서버간의 통신시 기본 보호 기능
+  - com.pknu26.studygroup, com.pknu6.apiboard 둘 사이에 접근불가
+  - CORS로 오픈 설정 후
+
+- CSRF : Cross-Site Request Forgery 보안
+  - 명시적 동의없이 사용자를 대신 웹앱에서 악의적인 행동을 취하는 공격
+
+#### API 테스트
+
+- Postman 테스트
+
+![alt text](image-54.png)
+- 로그인 실패하면 로그인화면으로 다시 돌아감
+- 성공하면 json를 리턴
+
+```json
+{
+  "tokenType": "Bearer",
+  "accessToken": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJwa251IiwidXNlcklkIjo0LCJuYW1lIjoi67aA6rK964yAIiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTc3NzM0NDU4OCwiZXhwIjoxNzc3MzQ4MTg4fQ.2s2TR4SXQUJWFIy2mMx-j9OwQd3iZIl5S7SW6U0xNfMIG-KH3b7Xe7rBZGMX8m8t",
+  "userId": 4,
+  "loginId": "pknu",
+  "name": "부경대",
+  "role": "ROLE_USER"
+}
+```
+
+### 소셜 로그인
+
+#### 구글 로그인
+
+```text
+USER_ACCOUNT
+ └─ StudyGroup 사용자 계정
+
+Spring Security Form Login
+ └─ /user/login
+
+JWT API Login
+ └─ /api/auth/login
+
+추가할 Google Login
+ └─ /oauth2/authorization/google
+ └─ 성공 후 USER_ACCOUNT + USER_SOCIAL_ACCOUNT 저장
+```
+
+#### OAuth
+
+- Open Authorization : 아이디와 패스워드를 넘겨주지 않고, 다른 서비스의 기능을 안전하게 빌려쓰는 기술
+  - 구글, 네이버, 카카오, 페이스북, ...
+
+- OAuth 1.0 : 암호화방식 너무 복잡(암호화 지옥), 사용하기 어려움.
+- OAuth 2.0 : 복잡한 서명 삭제, 역할분담, 유연한 처리 가능
+
+#### 소셜 로그인 구현
+
+- build.gradle 에 의존성 추가
+- 구글 개발자콘솔 로그인 : https://console.cloud.google.com/
+  - 새 프로젝트 생성
+
+  ![alt text](image-55.png)
+  - 프로젝트 선택 > 탐색메뉴(햄버거메뉴)
+  - API 및 서비스
+    - 사용자 인증정보 > +사용자 인증정보 만들기 클릭
+  - OAuth 동의화면 클릭 > 시작하기 클릭
+  - OAuth 클라이언트 ID 클릭
+
+  ![alt text](image-56.png)
+  - 작성 후 만들기 클릭
+
+  ![alt text](image-57.png)
+  - json 다운로드
+
+- application.properties 구글OAuth 정보 추가
+
+- powershell에서 구글클라이언트아이디와 비밀키를 윈도우 환경변수에 등록
+
+  ```powershell
+  # 설정
+  > setx GOOGLE_CLIENT_ID "본인_구글클라이언트_아이디"
+
+  성공: 지정한 값을 저장했습니다.
+  > PS C:\Users\Admin> setx GOOGLE_CLIENT_SECRET "본인_구글클라리언트_시크릿키"
+
+  성공: 지정한 값을 저장했습니다.
+
+  # 확인 파워셀 재시작 후
+  > echo $env:GOOGLE_CLIENT_ID
+  > echo $env:GOOGLE_CLIENT_SECRET
+  ```
+
+- 소셜 로그인 연결용 테이블 생성
+- 기존 로그인 테이블 password 필드 NOT NULL -> NULL 로 변경(소셜로그인으로는 패스워드 전달안됨)
+- LOGIN_ID 길이 변경 VARCHAR2(200). 이메일 입력
+
+- dto, UserSocialAccount 클래스
+- mapper, UserSocialAccountMapper 인터페이스
+- resource/mapper, UserSocialAccountMapper.xml
+- mapper, UserMapper 인터페이스에 신규 메서드 추가
+- resources/mapper, userMapper.xml 신규 SQL 추가
+
+- OAuth2 구글로그인 서비스
+  - security, CustomOAuth2UserService 클래스
+    1. 구글 사용자 정보받기
+    2. privder = google
+    3. providerUserId = 구글 Subject
+    4. USER_SOCIAL_ACCOUNT 테이블에 이미 정보가 있으면 로그인처리
+    5. 없으면 USER_ACCOUNT 생성
+    6. USER_SOCIAL_ACCOUNT 생성
+    7. Spring Security 인증 처리
+
+- config, SecurityConfig에 OAuth2 Login 추가
+
+![alt text](image-58.png)
+
+![alt text](image-62.png)
+
+- Google 환경 로그
+  ![alt text](image-59.png)
+
+- 구글 로그인
+
+![alt text](image-60.png)
+
+![alt text](image-61.png)
+
+### 남은 이슈
 
 - [x] favicon 추가
   - 자동인식방법 resources/static.favicon.ico
@@ -271,12 +453,15 @@ https://github.com/user-attachments/assets/ed29d102-8e7e-4fa9-8dc6-af92e44f415d
   - Carousel : 이미지가 일정시간마다 전환, 또는 버튼클릭으로 전환되는 디자인
   - 현재 화면
 
+![alt text](image-53.png)
+
 - 파일 업로드
 
 - Spring Security
 - JWT
 
 - [x] 세군데 있던 checkAdmin 메서드 정리. Adminhelper
+- [ ] 용량 큰 이미지(4.5MB 정도)를 붙여넣은 후 오류
 
 - 미니프로젝트 팀 구성
 - 미니프로젝트 주제
