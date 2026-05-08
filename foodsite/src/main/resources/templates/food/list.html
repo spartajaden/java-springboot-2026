@@ -73,14 +73,16 @@
 
               <td class="text-center">
                 <a th:href="@{/food/edit/{id}(id=${food.id})}"
-                   class="btn btn-sm btn-primary me-1"
-                >
+                   class="btn btn-sm btn-primary me-1">
                   수정
                 </a>
-                <a th:href="@{/food/delete/{id}(id=${food.id})}"
-                   class="btn btn-sm btn-danger"
-                   onclick="return confirm('삭제할까요?')"> 삭제
-                </a>
+                <!-- ✅ 삭제 버튼: <a> → <form>으로 변경 -->
+                <form th:action="@{/food/delete/{id}(id=${food.id})}"
+                      method="post"
+                      style="display:inline;"
+                      onsubmit="return confirm('삭제할까요?')">
+                  <button type="submit" class="btn btn-sm btn-danger">삭제</button>
+                </form>
               </td>
             </tr>
             <tr th:if="${#lists.isEmpty(pageResponse.content)}">
@@ -95,7 +97,6 @@
 
    <div class="row">
       <div class="col-9">
-      <!-- 페이지네이션 -->
       <nav>
         <ul class="pagination pagination-sm justify-content-center">
           <li class="page-item" th:if="${pageResponse.hasPrev}">

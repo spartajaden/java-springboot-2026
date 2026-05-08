@@ -2,6 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pknu26.foodsite.mapper.FoodMapper">
 
+    <resultMap id="foodResultMap" type="com.pknu26.foodsite.dto.Food">
+        <id property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="rating" column="RATING"/>
+        <result property="memo" column="MEMO"/>
+        <result property="eatDate" column="EAT_DATE" javaType="java.time.LocalDate"/>
+        <result property="createdAt" column="CREATED_AT" javaType="java.time.LocalDateTime"/>
+    </resultMap>
+
     <sql id="searchCondition">
         <where>
             <if test="keyword != null and keyword != ''">
@@ -13,8 +23,7 @@
         </where>
     </sql>
 
-    <!-- id를 selectAllFoods로 수정 -->
-    <select id="selectAllFoods" resultType="com.pknu26.foodsite.dto.Food">
+    <select id="selectAllFoods" resultMap="foodResultMap">
         SELECT * FROM FOOD
         <include refid="searchCondition" />
         ORDER BY EAT_DATE DESC
@@ -28,16 +37,15 @@
 
     <insert id="insertFood">
         INSERT INTO FOOD (ID, NAME, CATEGORY, RATING, MEMO, EAT_DATE)
-        VALUES (FOOD_SEQ.NEXTVAL, #{name}, #{category}, #{rating}, #{memo}, #{eatDate})
+        VALUES (FOOD_SEQ.NEXTVAL, #{name}, #{category}, #{rating}, #{memo}, #{eatDate, jdbcType=DATE})
     </insert>
 
-    <!-- resultType foodsite 추가 -->
-    <select id="selectFoodById" resultType="com.pknu26.foodsite.dto.Food">
+    <select id="selectFoodById" resultMap="foodResultMap">
         SELECT * FROM FOOD WHERE ID = #{id}
     </select>
 
     <update id="updateFood">
-        UPDATE FOOD SET NAME=#{name}, CATEGORY=#{category}, RATING=#{rating}, MEMO=#{memo}, EAT_DATE=#{eatDate}
+        UPDATE FOOD SET NAME=#{name}, CATEGORY=#{category}, RATING=#{rating}, MEMO=#{memo}, EAT_DATE=#{eatDate, jdbcType=DATE}
         WHERE ID=#{id}
     </update>
 
