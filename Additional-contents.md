@@ -1,4 +1,4 @@
-<Spring boot 로 코드 작업할 때 진짜 유용한 확장 프로그램 2가지>
+<Spring boot 로 코드 작업할 때 진짜 유용한 확장 프로그램 3가지>
 
 1. Error Lens
 
