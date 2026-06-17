@@ -13,7 +13,8 @@
 <img width="709" height="186" alt="image" src="https://github.com/user-attachments/assets/deef49a0-85f0-483e-8e2b-6f34503655e0" />
 
 
- 🌟 웹사이트 작동하기 전에 DBeaver에서 sql 쿼리 추가하기. 만약 기존의 객체를 사용하고 있다면, 삭제하고 다시 새로고침하기!!
+
+🌟 웹사이트 작동하기 전에 DBeaver에서 sql 쿼리 추가하기. 만약 기존의 객체를 사용하고 있다면, 삭제하고 다시 새로고침하기!!
 
 Spring boot에서 interface는 큰그릇이라고 생각하면 쉬움.
 
