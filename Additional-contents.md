@@ -10,7 +10,8 @@
 
 3. VScode-icons
 
-<img width="709" height="186" alt="photo_2026-06-17_14-02-21" src="https://github.com/user-attachments/assets/fee85bab-1b6e-49e1-b605-f3fe0f5e9aaf" />
+<img width="709" height="186" alt="image" src="https://github.com/user-attachments/assets/87283a42-839d-44c5-aa78-b45f8103dfb2" />
+
 
 🌟 웹사이트 작동하기 전에 DBeaver에서 sql 쿼리 추가하기. 만약 기존의 객체를 사용하고 있다면, 삭제하고 다시 새로고침하기!!
 
